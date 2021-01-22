@@ -7,6 +7,8 @@ class ActionValueFunction:
 	"""
 	This is the action-value function for the DQN. 
 	I guess the preprocessing function Phi is just the identity function.
+	Just kidding. Preprocessing involves normalizing pixel values, so
+	dividing by 255.
 	"""
 
 	def __init__(self, grid_size, action_space, fc_layers=2, conv_layers=0):
@@ -70,17 +72,11 @@ class ActionValueFunction:
 		else:
 			next_state = tf.expand_dims(next_state, axis=0)
 			next_reward = self.model(next_state)
-			#next_reward = tf.math.reduce_max(next_reward)
 			y = reward + lam*next_reward
-		# mask = np.zeros((self.output_shape))
-		# mask[action] = 1
 		with tf.GradientTape() as tape:
 			# tape.watch(tf.convert_to_tensor(mask))
 			state = tf.expand_dims(state, axis=0)
 			output_vals = self.model(state)
-			#output_vals_sliced = output_vals[action]
-			#output_vals_sliced = tf.tensordot(output_vals, mask)
-			#output_vals_sliced = tf.slice(output_vals, action+1, size=1)
 			loss = (y - output_vals)**2 # is indexing a legal operation here???
 
 		grads = tape.gradient(loss, self.model.trainable_variables)
