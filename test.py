@@ -29,10 +29,10 @@
 
 import numpy as np
 import matplotlib
-#matplotlib.use("Agg")
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
+from matplotlib.animation import FFMpegWriter
 
 def update_line(num, data, line):
     line.set_data(data[..., :num])
@@ -71,3 +71,21 @@ for add in np.arange(15):
 im_ani = animation.ArtistAnimation(fig2, ims, interval=50, repeat_delay=3000,
                                    blit=True)
 im_ani.save('im.mp4', writer=writer)
+
+fig3 = plt.figure()
+metadata = dict(title='Movie Test', artist='Matplotlib',
+                comment='Movie support!')
+writer = FFMpegWriter(fps=15, metadata=metadata)
+l, = plt.plot([], [], 'k-o')
+
+plt.xlim(-5, 5)
+plt.ylim(-5, 5)
+
+x0, y0 = 0, 0
+
+with writer.saving(fig3, "writer_test.mp4", 100):
+    for i in range(100):
+        x0 += 0.1 * np.random.randn()
+        y0 += 0.1 * np.random.randn()
+        l.set_data(x0, y0)
+        writer.grab_frame()
