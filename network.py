@@ -17,15 +17,16 @@ class ActionValueFunction:
 		# not actually used yet
 		self.fc_layers = fc_layers
 		self.conv_layers = conv_layers
-		kernel_size = (35, 35)
+		kernel_size = (2, 2)
 
 		self.optimizer = tf.keras.optimizers.Adam(learning_rate=10e-5)
 
 		# define the model here
 		# Question: should the output of the value network
 		# be constrained by the properties of the softmax function???
+		# will experiment with different model architectures
 		self.model = tf.keras.models.Sequential([
-			tf.keras.layers.Conv2D(filters=1, kernel_size=kernel_size, activation='tanh', 
+			tf.keras.layers.Conv2D(filters=5, kernel_size=kernel_size, activation='relu', 
 				input_shape=self.input_shape),
 			tf.keras.layers.Flatten(),
 			tf.keras.layers.Dense(units=self.output_shape, activation='sigmoid')
