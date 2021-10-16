@@ -1,5 +1,5 @@
 # snake_rl
-Building a reinforcement learning algorithm to solve the snake game
+Building a reinforcement learning algorithm to solve the snake game in response to OpenAI's request for research.
 
 # requirements and setup
 Install the snake gym: 
