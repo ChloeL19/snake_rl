@@ -2,7 +2,7 @@ absl-py==0.11.0
 astunparse==1.6.3
 -e git+git@github.com:ChloeL19/c_snake.git@2b84d89c0d647cc9e368437c7017d4152604c80a#egg=c_snake_gym
 cachetools==4.1.1
-certifi==2020.11.8
+certifi==2022.12.7
 chardet==3.0.4
 cloudpickle==1.6.0
 cycler==0.10.0
